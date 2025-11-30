@@ -1,0 +1,84 @@
+/*body{
+            background-color: black;
+        }
+        h1{
+            color:  rgba(34, 214, 82);
+            border: 2px dotted red;
+        }
+        p{
+            color: aliceblue;
+            border: 5px solid gold;
+            border-radius: 10px;
+        }
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+            color: yellow;
+        }*/
+
+        body{
+            background-image: url("GPT.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment:fixed;
+            background-position:center;
+        }
+        h1{
+            background: linear-gradient( to right, blue, red);
+        }
+        .div1{
+            background-color: green;
+            border: 2px solid black;
+            height: 200px;
+            width: 400px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            
+        }
+
+        .div2{
+            background-color: red;
+            border-radius:100px;
+            height: 100px;
+            width: 100px;
+            /*padding: 100px;*/
+
+        }
+
+        /* #div3{
+            background-color: yellow;
+            border: 50px solid rgb(125, 55, 5);
+            height: 200px;
+            width: 200px;
+        }
+        .divAll{
+            color: black;
+            font-size: 30px;
+            margin: 100px 100px 100px 100px;
+            padding: 100px;
+        }
+        
+        .parentDiv{
+            display:flex;
+
+        }*/
+
+        #div4{
+            background-color: green;
+            border: 2px solid rgb(125, 55, 5);
+            height: 20px;
+            width: 900px;
+            position:fixed;
+            top:0px;
+        }
+
+        li:nth-child(2n+4)
+        {
+            color:red;
+        }
