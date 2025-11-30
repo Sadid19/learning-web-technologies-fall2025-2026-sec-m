@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="regForm">
+        <fieldset>
+            <legend>Student Registration Form</legend><br>
+            <label>Full Name:</label><br>
+            <input type="text" id="name"><br>
+            <small id="nameError" style="color:red;"></small>
+            <br>
+
+            <label>Email:</label><br>
+            <input type="text" id="mail"><br>
+            <small id="mailError" style="color:red;"></small><br>
+            <br>
+
+            <label>Password:</label><br>
+            <input type="password" id="password"><br>
+            <small id="passwordError" style="color:red;"></small><br>
+            <br>
+
+            <label>Confrim Password:</label><br>
+            <input type="password" id="confrim"><br>
+            <small id="confirmError" style="color:red;"></small><br>
+            <br>
+
+            <label>Blood Group</label>
+            <select id="bloodGroup" name="bloodGroup">
+                <option value="">Choose</option>
+                <option value="B+">B+</option>
+                <option value="O+">O+</option>
+                <option value="A+">A+</option>
+            </select>
+            
+
+            <br><br>
+            <label>Gender:</label>
+            <input type="radio" name="gender" value="Male"> Male
+            <input type="radio" name="gender" value="Female"> Female
+            <input type="radio" name="gender" value="Other"> Other
+            <br>
+            <small id="genderError" style="color:red;"></small>
+
+            <br>
+
+            <label>Number:</label><br>
+            <input type="text" id="number"><br>
+            <small id="numberError" style="color:red;"></small><br>
+            <br>
+
+            <label>Check:</label>
+            <input type="checkbox" id="check" name="check" value="yes"> Yes <br>
+            <small id="checkError" style="color:red;"></small><br>
+            <br>
+
+            <button type="submit">Submit</button>
+
+        </fieldset>
+</form>
+        <h3 id="successMessage" style="color:green;"></h3>
+
+            <!--Table data-->
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Mail</th>
+                        <th>Blood Group</th>
+                        <th>Gender</th>
+                        <th>Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody">
+
+                </tbody>
+            </table>
+
+        <script>
+            let student = [];
+            let index = -1;
+            
+            const form = document.getElementById("regForm");
+
+            form.addEventListener("submit", function(event){
+                event.preventDefault();
+                let name = document.getElementById("name").value.trim();
+                let mail = document.getElementById("mail").value.trim();
+                let password = document.getElementById("password").value;
+                let confirmPassword = document.getElementById("confrim").value;
+                let bloodGroup = document.getElementById("bloodGroup").value.trim();
+                let gender = document.querySelector('input[name="gender"]:checked');
+                let number = document.getElementById("number").value.trim();
+                let checkButton = document.getElementById("check").checked;
+            
+                //Errors
+                let nameError = document.getElementById("nameError");
+                let mailError = document.getElementById("mailError");
+                let passwordError = document.getElementById("passwordError");
+                let confirmError = document.getElementById("confirmError");
+                let genderError = document.getElementById("genderError");
+                let numberError = document.getElementById("numberError");
+                let checkError = document.getElementById("checkError");
+                let successMessage = document.getElementById("successMessage");
+
+                //Clear errors
+                nameError.innerHTML="";
+                mailError.innerHTML="";
+                passwordError.innerHTML="";
+                confirmError.innerHTML="";
+                genderError.innerHTML="";
+                checkError.innerHTML="";
+                numberError.innerHTML="";
+                successMessage.innerHTML="";
+
+                let valid = true;
+
+                //nameValidation
+                if(name==""){
+                    nameError.innerHTML="Name is required!";
+                    valid = false;
+                }
+
+                //mailValidation
+                if(!mail.includes("@") || !mail.includes(".")){
+                    mailError.innerHTML="Enter a valid Mail!";
+                    valid = false;
+                }
+
+                //passwordValidation
+                if(password.length < 5){
+                    passwordError.innerHTML="Password must be at least 5 character!";
+                    valid = false;
+                }
+
+                //confrimPasswordValidaiton
+                if(password !== confirmPassword){
+                    confirmError.innerHTML="Password Incorrect!";
+                    valid = false;
+                }
+
+                //genderValidation
+                if(!gender){
+                    genderError.innerHTML="please select yout gender";
+                    valid = false;
+                }
+
+                //numberValidation
+                if(isNaN(number) || number ===""){
+                    numberError.innerHTML="Provide a valid number.";
+                    valid = false;
+                }
+
+                //all valid
+                if(!valid){
+                    return;
+                }
+
+                let studentData= {
+                    name:name,
+                    mail:mail,
+                    password:password,
+                    bloodGroup:bloodGroup,
+                    gender:gender.value,
+                    number:number
+
+                };
+
+                if(index === -1){
+                    student.push(studentData);
+                    successMessage.innerHTML="Data Added!";
+                    index=-1;
+                }
+                form.reset();
+                renderTable();
+            });
+
+            function renderTable(){
+                let tableBody = document.getElementById("tableBody");
+                tableBody.innerHTML="";
+                student.forEach(function(stu, i){
+                    let row = document.createElement("tr");
+                    row.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${stu.name}</td>
+                    <td>${stu.mail}</td>
+                    <td>${stu.bloodGroup}</td>
+                    <td>${stu.gender}</td>
+                    <td>${stu.number}</td>
+                    <td>
+                        <button type="button" onclick="editStudent(${i})">Update</button>
+                    </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+
+            function editStudent(i){
+        let stu = student[i];
+
+        // form e data bosabe
+        document.getElementById("name").value = stu.name;
+        document.getElementById("mail").value = stu.mail;
+        document.getElementById("password").value = stu.password;
+        document.getElementById("confrim").value = stu.password;
+        document.getElementById("bloodGroup").value = stu.bloodGroup;
+        document.getElementById("number").value = stu.number;
+
+        // gender radio set
+        let genderRadio = document.querySelector(`input[name="gender"][value="${stu.gender}"]`);
+        if(genderRadio){
+            genderRadio.checked = true;
+        }
+
+        // checkbox check kore dilam (chaile na-o dite paro)
+        document.getElementById("check").checked = true;
+
+        // Ekhon theke submit korle, ei row update hobe
+        index = i;
+
+        document.getElementById("successMessage").innerHTML =
+            "Now editing row #" + (i + 1) + ". Change data and press Submit to update.";
+    }
+        </script>
+</body>
+</html>
