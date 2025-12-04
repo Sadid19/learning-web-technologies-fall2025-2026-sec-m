@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Validation</title>
+</head>
+<body>
+       <ol>
+        <!---Name-->
+        <li>
+            <!--<label>Name</label><br><br>-->
+            <h1 id="head">Name</h1>
+            <!--<input type="text"><br><br>-->
+            <input type="text" id="username" value=""/>
+            <br><br>
+            <!--<input type="submit" value="submit">-->
+            <input type="button" name="submit" value="submit" onclick="test()" />
+            <p id="uError"></p>
+            <hr>
+        </li>
+
+        <!---Email-->
+        <li>
+            <lablel>Email</lablel><br><br>
+            <input type="text"><br><br>
+            <input type="submit" value="submit">
+            <hr>
+        </li>
+
+        <!---Gender-->
+        <li>
+            <fieldset>
+                <legend>Gender</legend>
+                <input type="radio" name="gender" value="male"> Male
+                <input type="radio" name="gender" value="male"> Female
+                <input type="radio" name="gender" value="male"> Other
+            </firldset>
+            <br><br>
+            <input type="submit" value="submit">
+        </li>
+        <hr>
+
+        <!---Date of Birth-->
+        <li>
+            <fieldset>
+                <legend>Date of Birth</legend>
+                <table>
+                    <tr>
+                        <th>dd</th>
+                        <th>mm</th>
+                        <th>yyyy</th>
+                    </tr>
+                    <tr>
+                        <td><input type="text" size="2"></td>
+                        <td><input type="text" size="2"></td>
+                        <td><input type="text" size="4"></td>
+                    </tr>
+                </table>
+                <input type="submit" value="submit">
+            </fieldset>
+            <hr>
+        </li>
+
+        <!--Blood group-->
+        <li>
+            <form>
+                Blood group
+                <select name="blood">
+                    <option value="A+" selected>A+</option>
+                    <option value="A-" selected>A-</option>
+                    <option value="B+" selected>B+</option>
+                    <option value="B-" selected>B-</option>
+                    <option vlaue="AB+" selected>AB+</option>
+                    <option value="AB-" selected>AB-</option>
+                    <option value="O+" selected>O+</option>
+                    <option value="O-" selected>O-</option>
+                </select>
+                <br><br>
+                <input type="submit" value="submit">
+                <hr>
+            </form>
+        </li>
+    </ol>
+
+    <hr><hr>
+
+    <!--JS Test-->
+    <h1 id="head">JS Example</h1>
+    <input type="text" id="username" value=""/>
+    <br><br>
+    <input type="button" name="click" value="submit" onclick="test()" />
+    <p id="uError"></p>
+    
+    <script>
+        function test()
+        {
+            let uError = document.getElementById('uError');
+            let username = document.getElementById('username').value;
+            if(username == ""){
+                uError.innerHTML = "Please type username first!";
+                uError.style.color = "red";
+            }
+            else{
+                document.getElementById('head').innerHTML = username;
+                uError.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>

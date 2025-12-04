@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dark/Light Mode</title>
+</head>
+<body id="pageBody">
+
+    <header id="header">
+        <h1>My Portfolio</h1>
+        <button id="toggleBtn">Switch to Dark Mode</button>
+    </header>
+
+    <main id="content">
+        <h2>Welcome</h2>
+        <p>This is my portfolio content.</p>
+    </main>
+
+    <footer id="footer">
+        <p>&copy; 2025 My Name</p>
+    </footer>
+
+    <script>
+        let isDark = false; // current mode
+
+        let body = document.getElementById("pageBody");
+        let header = document.getElementById("header");
+        let content = document.getElementById("content");
+        let footer = document.getElementById("footer");
+        let btn = document.getElementById("toggleBtn");
+
+        function applyLightTheme() {
+            body.style.backgroundColor = "white";
+            body.style.color = "black";
+            header.style.borderBottom = "1px solid black";
+            footer.style.borderTop = "1px solid black";
+        }
+
+        function applyDarkTheme() {
+            body.style.backgroundColor = "#222";
+            body.style.color = "white";
+            header.style.borderBottom = "1px solid white";
+            footer.style.borderTop = "1px solid white";
+        }
+
+        // initial theme
+        applyLightTheme();
+
+        btn.addEventListener("click", function () {
+            if (isDark) {
+                applyLightTheme();
+                isDark = false;
+                btn.innerText = "Switch to Dark Mode";
+            } else {
+                applyDarkTheme();
+                isDark = true;
+                btn.innerText = "Switch to Light Mode";
+            }
+        });
+    </script>
+
+</body>
+</html>

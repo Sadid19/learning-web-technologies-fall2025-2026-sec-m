@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration</title>
+  </head>
+  <body>
+    <h2>Register</h2>
+    <form action="login.html" method="get">
+      First Name:<br>
+      <input type="text" name="firstname"><br><br>
+      
+      Last Name:<br>
+      <input type="text" name="lastname"><br><br>
+      
+      Email:<br>
+      <input type="email" name="email"><br><br>
+      
+      Password:<br>
+      <input type="password" name="password"><br><br>
+
+       Confirm Password:<br>
+      <input type="password" name="confirmpassword"><br><br>
+      
+      Address:<br>
+      <input type="text" name="address"><br><br>
+      
+      Gender:<br>
+      <input type="radio" id="male" name="gender" value="Male">
+      <label for="male">Male</label>
+      <input type="radio" id="female" name="gender" value="Female">
+      <label for="female">Female</label>
+      <input type="radio" id="other" name="gender" value="Other">
+      <label for="other">Other</label>
+      <br><br>
+      
+      Profession:<br>
+      <select name="profession">
+        <option value="">Select Profession</option>
+        <option value="student">Student</option>
+        <option value="teacher">Teacher</option>
+        <option value="engineer">Engineer</option>
+        <option value="doctor">Doctor</option>
+        <option value="other">Other</option>
+      </select>
+      <br><br>
+      
+      Date of Birth:<br>
+      <input type="date" name="dob"><br><br>
+      
+      Upload Profile Picture:<br>
+      <input type="file" name="profilepic"><br><br>
+      
+      <input type="checkbox" id="terms" name="terms">
+      <label for="terms">I accept the terms and conditions</label>
+      <br><br>
+      
+      <input type="submit" value="Register">
+      <input type="reset" value="Reset">
+    </form>
+  </body>
+</html>

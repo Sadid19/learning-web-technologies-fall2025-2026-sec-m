@@ -1,0 +1,255 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<h1>The td colspan attribute</h1>
+
+<table>
+<tr>
+    <th colspan="2">Hello</th>
+  </tr>
+  <tr>
+    <td colspan="2">Hello</td>
+  </tr>
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$80</td>
+  </tr>
+  <tr>
+    <td colspan="2">Sum: $180</td>
+  </tr>
+</table>
+ 
+</body>
+</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Portal Signup</title>
+</head>
+
+<body>
+
+    <h2>Student Registration Form</h2>
+
+    <form id="regForm">
+
+        <!-- Full Name -->
+        <label>Full Name:</label><br>
+        <input type="text" id="name"><br>
+        <small id="nameError" style="color:red;"></small>
+        <br><br>
+
+        <!-- Email -->
+        <label>Email:</label><br>
+        <input type="text" id="email"><br>
+        <small id="emailError" style="color:red;"></small>
+        <br><br>
+
+        <!-- Password -->
+        <label>Password:</label><br>
+        <input type="password" id="password"><br>
+        <small id="passError" style="color:red;"></small>
+        <br><br>
+
+        <!-- Confirm Password -->
+        <label>Confirm Password:</label><br>
+        <input type="password" id="confirmPassword"><br>
+        <small id="confirmPassError" style="color:red;"></small>
+        <br><br>
+
+        <!-- Phone Number -->
+        <label>Phone Number:</label><br>
+        <input type="text" id="phone"><br>
+        <small id="phoneError" style="color:red;"></small>
+        <br><br>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <h3 id="successMessage" style="color:green;"></h3>
+
+    <!-- TABLE: SHOW SUBMITTED DATA -->
+    <h2>Registered Students</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Rows will be added here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Array to store all submitted students
+        let students = [];
+
+        // -1 means "no row is being edited now"
+        let editingIndex = -1;
+
+        // Form Submit Event Listener
+        document.getElementById("regForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // stop form from submitting
+
+            // Input values
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            let phone = document.getElementById("phone").value.trim();
+
+            // Error fields
+            let nameError = document.getElementById("nameError");
+            let emailError = document.getElementById("emailError");
+            let passError = document.getElementById("passError");
+            let confirmPassError = document.getElementById("confirmPassError");
+            let phoneError = document.getElementById("phoneError");
+            let successMessage = document.getElementById("successMessage");
+
+            // Clear previous errors and success
+            nameError.innerText = "";
+            emailError.innerText = "";
+            passError.innerText = "";
+            confirmPassError.innerText = "";
+            phoneError.innerText = "";
+            successMessage.innerText = "";
+
+            let valid = true;
+
+            // Full Name Validation
+            if (name === "") {
+                nameError.innerText = "Name is required.";
+                valid = false;
+            }
+
+            // Email Validation: must contain @ and .
+            if (!email.includes("@") || !email.includes(".")) {
+                emailError.innerText = "Enter a valid email.";
+                valid = false;
+            }
+
+            // Password Validation: at least 6 characters
+            if (password.length < 6) {
+                passError.innerText = "Password must be at least 6 characters.";
+                valid = false;
+            }
+
+            // Confirm Password Validation
+            if (password !== confirmPassword) {
+                confirmPassError.innerText = "Passwords do not match.";
+                valid = false;
+            }
+
+            // Phone number validation: digits only
+            if (isNaN(phone) || phone === "") {
+                phoneError.innerText = "Phone number must contain digits only.";
+                valid = false;
+            }
+
+            // If any validation failed, stop here
+            if (!valid) {
+                return;
+            }
+
+            // If all fields are valid:
+            // Create a student object
+            let studentData = {
+                name: name,
+                email: email,
+                password: password,  // (in real life, never show or store raw password like this)
+                phone: phone
+            };
+
+            // Check if we are adding new OR updating existing
+            if (editingIndex === -1) {
+                // New record
+                students.push(studentData);
+                successMessage.innerText = "Registration Successful! New record added.";
+            } else {
+                // Updating existing record
+                students[editingIndex] = studentData;
+                successMessage.innerText = "Record updated successfully.";
+                editingIndex = -1; // reset back to normal mode
+            }
+
+            // Clear the form after successful save
+            document.getElementById("regForm").reset();
+
+            // Re-draw table with updated students array
+            renderTable();
+        });
+
+        // Function to render students array into the table
+        function renderTable() 
+        {
+            let tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = ""; // clear old rows
+
+            students.forEach(function(student, index) 
+            {
+                let row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${student.name}</td>
+                    <td>${student.email}</td>
+                    <td>${student.phone}</td>
+                    <td>
+                        <button type="button" onclick="editStudent(${index})">Update</button>
+                    </td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        // This function is called when user clicks "Update" button for a row
+        function editStudent(index) 
+        {
+            let student = students[index];
+
+            // Fill the form with selected student's data
+            document.getElementById("name").value = student.name;
+            document.getElementById("email").value = student.email;
+            document.getElementById("password").value = student.password;
+            document.getElementById("confirmPassword").value = student.password;
+            document.getElementById("phone").value = student.phone;
+
+            // Set which index we are editing
+            editingIndex = index;
+
+            // Show a message to user
+            document.getElementById("successMessage").innerText =
+                "You are editing record #" + (index + 1) + ". Change the data and click Submit to update.";
+        }
+        
+    </script>
+
+</body>
+</html>
+

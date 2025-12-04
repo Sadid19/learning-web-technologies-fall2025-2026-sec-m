@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+    <h1 id="head">Name</h1>
+    <input type="text" id="name" value="" />
+    <br><br>
+    <input type="button" name="submit" value="submit" onclick="validation()"/>
+    <p id="nError"></p>
+
+<script>
+    function validation()
+    {
+        let nError = document.getElementById('nError');
+        let username = document.getElementById('name').value;
+        if(username == ""){
+            nError.innerHTML = "Please type user first name!";
+            nError.style.color = "red";
+            return false;
+        }
+        if(username.split(" ").length < 2){
+            nError.innerHTML = "Name must be contains at least two words!";
+            nError.style.color = "red";
+            return false;
+        }
+        let word = username[0];
+        if(!(((word >= 'A' && word <= 'Z') || (word >= 'a' && word <= 'z')))){
+            nError.innerHTML = "Msut start with a letter!";
+            nError.style.color = "red";
+            return false;
+        }
+        else{
+            document.getElementById('head').innerHTML = username;
+            nError.innerHTML = "";
+            return true;
+        }
+        
+    }
+</script>
+</body>
+</html>
