@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriconnect - লগইন</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f9f4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        body.bangla {
+            font-family: 'SolaimanLipi', 'Siyam Rupali', 'Kalpurush', 'Segoe UI', sans-serif;
+        }
+
+        .login-container {
+            display: flex;
+            width: 100%;
+            max-width: 1100px;
+            min-height: 650px;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        /* Language Toggle Button */
+        .language-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .lang-btn {
+            background-color: #f0f7ed;
+            border: 1px solid #4a7c1f;
+            color: #2d5016;
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background-color: #4a7c1f;
+            color: white;
+        }
+
+        .lang-icon {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        /* Left side - Illustration/Image */
+        .login-illustration {
+            flex: 1;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c1f 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            background-color: #e9f7e5;
+            color: #2d5016;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .illustration-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .illustration-text {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 400px;
+            opacity: 0.9;
+        }
+
+        .illustration-image {
+            width: 85%;
+            max-width: 400px;
+            margin-top: 30px;
+        }
+
+        /* Right side - Login Form */
+        .login-form {
+            flex: 1;
+            padding: 50px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            color: #1a3309;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #4a7c1f;
+            box-shadow: 0 0 0 2px rgba(74, 124, 31, 0.2);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .remember-me label {
+            color: #555;
+            font-size: 15px;
+        }
+
+        .forgot-password {
+            color: #4a7c1f;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #2d5016;
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            background-color: #4a7c1f;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .login-btn:hover {
+            background-color: #3a6418;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .signup-link a {
+            color: #4a7c1f;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .login-container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .login-illustration {
+                padding: 30px;
+            }
+            
+            .login-form {
+                padding: 40px;
+            }
+            
+            .illustration-image {
+                width: 70%;
+            }
+            
+            .language-toggle {
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form {
+                padding: 30px;
+            }
+            
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .forgot-password {
+                margin-top: 10px;
+            }
+            
+            .illustration-title {
+                font-size: 26px;
+            }
+            
+            .welcome-title {
+                font-size: 24px;
+            }
+            
+            .language-toggle {
+                top: 10px;
+                right: 10px;
+            }
+            
+            .lang-btn {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Language Toggle Button -->
+        <div class="language-toggle">
+            <button id="langToggle" class="lang-btn">
+                <i class="fas fa-language lang-icon"></i>
+                <span id="langText">বাংলা</span>
+            </button>
+        </div>
+        
+
+        
+        <!-- Left side - Illustration/Image -->
+        <div class="login-illustration">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <span id="logoText">Agriconnect</span>
+            </div>
+            
+            <h2 class="illustration-title" id="taglineText">Connecting Micro Entrepreneurs with Farmers</h2>
+            <p class="illustration-text" id="descriptionText">A platform that bridges the gap between agricultural producers and business innovators to foster sustainable growth in the farming ecosystem.</p>
+            
+            <svg class="illustration-image" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                <rect x="50" y="100" width="300" height="150" rx="10" fill="#e9f7e5" />
+                <rect x="80" y="130" width="80" height="40" rx="5" fill="#4a7c1f" />
+                <rect x="180" y="130" width="80" height="40" rx="5" fill="#2d5016" />
+                <rect x="280" y="130" width="80" height="40" rx="5" fill="#4a7c1f" />
+                
+                <circle cx="120" cy="80" r="40" fill="#ffcc66" />
+                <circle cx="280" cy="80" r="40" fill="#66ccff" />
+                
+                <path d="M120,80 Q200,40 280,80" stroke="#4a7c1f" stroke-width="4" fill="none" stroke-dasharray="8,8" />
+                
+                <text x="120" y="85" text-anchor="middle" fill="#1a3309" font-weight="bold" font-size="14" id="svgFarmerText">Farmers</text>
+                <text x="280" y="85" text-anchor="middle" fill="#1a3309" font-weight="bold" font-size="14" id="svgEntrepreneurText">Entrepreneurs</text>
+                
+                <text x="120" y="155" text-anchor="middle" fill="white" font-weight="bold" font-size="12" id="svgProduceText">Produce</text>
+                <text x="220" y="155" text-anchor="middle" fill="white" font-weight="bold" font-size="12" id="svgConnectText">Connect</text>
+                <text x="320" y="155" text-anchor="middle" fill="white" font-weight="bold" font-size="12" id="svgMarketText">Market</text>
+            </svg>
+        </div>
+        
+        <!-- Right side - Login Form -->
+        <div class="login-form">
+            <h1 class="welcome-title" id="welcomeText">Welcome Back</h1>
+            <p class="subtitle" id="instructionText">Please enter your details to log in.</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="email" id="emailLabel">Email or Phone Number</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="email" placeholder="" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password" id="passwordLabel">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" placeholder="" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="role" id="roleLabel">Select Your Role</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user-tag input-icon"></i>
+                        <select id="role">
+                            <option value="admin" selected>Admin</option>
+                            <option value="farmer">Farmer</option>
+                            <option value="entrepreneur">Micro Entrepreneur</option>
+                            <option value="buyer">Buyer</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember" id="rememberLabel">Remember Me</label>
+                    </div>
+                    <a href="#" class="forgot-password" id="forgotPasswordText">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginButtonText">Login</button>
+                
+                <div class="signup-link">
+                    <span id="noAccountText">Don't have an account?</span> <a href="#" id="signupText">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Language data
+        const languages = {
+            en: {
+                langText: "বাংলা",
+                logoText: "Agriconnect",
+                taglineText: "Connecting Micro Entrepreneurs with Farmers",
+                descriptionText: "A platform that bridges the gap between agricultural producers and business innovators to foster sustainable growth in the farming ecosystem.",
+                svgFarmerText: "Farmers",
+                svgEntrepreneurText: "Entrepreneurs",
+                svgProduceText: "Produce",
+                svgConnectText: "Connect",
+                svgMarketText: "Market",
+                welcomeText: "Welcome Back",
+                instructionText: "Please enter your details to log in.",
+                emailLabel: "Email or Phone Number",
+                emailPlaceholder: "Enter your email or phone number",
+                passwordLabel: "Password",
+                passwordPlaceholder: "Enter your password",
+                roleLabel: "Select Your Role",
+                rememberLabel: "Remember Me",
+                forgotPasswordText: "Forgot Password?",
+                loginButtonText: "Login",
+                noAccountText: "Don't have an account?",
+                signupText: "Sign Up",
+                roleOptions: {
+                    admin: "Admin",
+                    farmer: "Farmer",
+                    entrepreneur: "Micro Entrepreneur",
+                    buyer: "Buyer"
+                }
+            },
+            bn: {
+                langText: "English",
+                logoText: "এগ্রিকানেক্ট",
+                taglineText: "ক্ষুদ্র উদ্যোক্তাদের কৃষকের সাথে সংযুক্ত করা",
+                descriptionText: "কৃষি উৎপাদনকারী এবং ব্যবসায়িক উদ্ভাবকদের মধ্যে ব্যবধান দূর করে কৃষি ব্যবস্থায় টেকসই বৃদ্ধি ফেলতে সহায়তা করার একটি প্ল্যাটফর্ম।",
+                svgFarmerText: "কৃষক",
+                svgEntrepreneurText: "উদ্যোক্তা",
+                svgProduceText: "পণ্য",
+                svgConnectText: "সংযোগ",
+                svgMarketText: "বাজার",
+                welcomeText: "ফিরে আসার জন্য স্বাগতম",
+                instructionText: "লগইন করতে আপনার বিবরণ দিন।",
+                emailLabel: "ইমেইল বা ফোন নম্বর",
+                emailPlaceholder: "আপনার ইমেইল বা ফোন নম্বর দিন",
+                passwordLabel: "পাসওয়ার্ড",
+                passwordPlaceholder: "আপনার পাসওয়ার্ড দিন",
+                roleLabel: "আপনার ভূমিকা নির্বাচন করুন",
+                rememberLabel: "মনে রাখুন",
+                forgotPasswordText: "পাসওয়ার্ড ভুলে গেছেন?",
+                loginButtonText: "লগইন",
+                noAccountText: "অ্যাকাউন্ট নেই?",
+                signupText: "নিবন্ধন করুন",
+                roleOptions: {
+                    admin: "অ্যাডমিন",
+                    farmer: "কৃষক",
+                    entrepreneur: "ক্ষুদ্র উদ্যোক্তা",
+                    buyer: "ক্রেতা"
+                }
+            }
+        };
+
+        // Current language state
+        let currentLang = 'en';
+
+        // DOM elements
+        const langToggle = document.getElementById('langToggle');
+        const langText = document.getElementById('langText');
+        const body = document.body;
+
+        // Function to update all text elements
+        function updateLanguage(lang) {
+            const langData = languages[lang];
+            
+            // Update all text elements
+            document.getElementById('logoText').textContent = langData.logoText;
+            document.getElementById('taglineText').textContent = langData.taglineText;
+            document.getElementById('descriptionText').textContent = langData.descriptionText;
+            document.getElementById('svgFarmerText').textContent = langData.svgFarmerText;
+            document.getElementById('svgEntrepreneurText').textContent = langData.svgEntrepreneurText;
+            document.getElementById('svgProduceText').textContent = langData.svgProduceText;
+            document.getElementById('svgConnectText').textContent = langData.svgConnectText;
+            document.getElementById('svgMarketText').textContent = langData.svgMarketText;
+            document.getElementById('welcomeText').textContent = langData.welcomeText;
+            document.getElementById('instructionText').textContent = langData.instructionText;
+            document.getElementById('emailLabel').textContent = langData.emailLabel;
+            document.getElementById('passwordLabel').textContent = langData.passwordLabel;
+            document.getElementById('roleLabel').textContent = langData.roleLabel;
+            document.getElementById('rememberLabel').textContent = langData.rememberLabel;
+            document.getElementById('forgotPasswordText').textContent = langData.forgotPasswordText;
+            document.getElementById('loginButtonText').textContent = langData.loginButtonText;
+            document.getElementById('noAccountText').textContent = langData.noAccountText;
+            document.getElementById('signupText').textContent = langData.signupText;
+            langText.textContent = langData.langText;
+            
+            // Update input placeholders
+            document.getElementById('email').placeholder = langData.emailPlaceholder;
+            document.getElementById('password').placeholder = langData.passwordPlaceholder;
+            
+            // Update role options
+            const roleSelect = document.getElementById('role');
+            roleSelect.innerHTML = '';
+            
+            for (const [key, value] of Object.entries(langData.roleOptions)) {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = value;
+                if (key === 'admin') option.selected = true;
+                roleSelect.appendChild(option);
+            }
+            
+            // Toggle bangla class on body for font change
+            if (lang === 'bn') {
+                body.classList.add('bangla');
+            } else {
+                body.classList.remove('bangla');
+            }
+        }
+
+        // Toggle language function
+        function toggleLanguage() {
+            if (currentLang === 'en') {
+                currentLang = 'bn';
+            } else {
+                currentLang = 'en';
+            }
+            
+            updateLanguage(currentLang);
+        }
+
+        // Initialize with English
+        updateLanguage('en');
+
+        // Add event listener to language toggle button
+        langToggle.addEventListener('click', toggleLanguage);
+
+        // Form submission handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const role = document.getElementById('role').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                if (currentLang === 'en') {
+                    alert('Please fill in all fields');
+                } else {
+                    alert('সমস্ত ফিল্ড পূরণ করুন');
+                }
+                return;
+            }
+            
+            // In a real application, you would send this data to a server
+            console.log('Login attempt with:', { email, password, role });
+            
+            // Show success message in current language
+            if (currentLang === 'en') {
+                alert(`Login successful! Welcome, ${role}.`);
+            } else {
+                const roleNames = {
+                    admin: "অ্যাডমিন",
+                    farmer: "কৃষক",
+                    entrepreneur: "ক্ষুদ্র উদ্যোক্তা",
+                    buyer: "ক্রেতা"
+                };
+                alert(`লগইন সফল! স্বাগতম, ${roleNames[role]}।`);
+            }
+            
+            // In a real app, you would redirect the user
+            // window.location.href = '/dashboard.html';
+        });
+        
+        // Forgot password link
+        document.querySelector('.forgot-password').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentLang === 'en') {
+                alert('A password reset link will be sent to your email.');
+            } else {
+                alert('একটি পাসওয়ার্ড রিসেট লিঙ্ক আপনার ইমেইলে পাঠানো হবে।');
+            }
+        });
+        
+        // Sign up link
+        document.querySelector('.signup-link a').addEventListener('click', function(e) {
+            e.preventDefault();
+            if (currentLang === 'en') {
+                alert('Redirecting to sign up page...');
+            } else {
+                alert('নিবন্ধন পৃষ্ঠায় রিডাইরেক্ট করা হচ্ছে...');
+            }
+        });
+    </script>
+</body>
+</html>
