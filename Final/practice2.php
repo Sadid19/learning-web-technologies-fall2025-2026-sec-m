@@ -123,13 +123,14 @@ $arr8 = [
     [1, 'D', 'E', 'F']
 ];
 
-for($i = 0; $i < count($arr); $i++){
-    for ($j = 0; $j < count($arr[$i]); $j++) {
-        if (is_int($arr[$i][$j])) {      
-            echo $arr[$i][$j] . " ";
+for($i = 0; $i < count($arr8); $i++){
+    for ($j = 0; $j < count($arr8[$i]); $j++) {
+        if (is_int($arr8[$i][$j])) {      
+            echo $arr8[$i][$j] . " ";
         } else {
             break;                       
         }
     }
+    echo "<br>";
 }
 ?>
